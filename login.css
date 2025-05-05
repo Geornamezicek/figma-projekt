@@ -1,0 +1,46 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+.form-container {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 50px;
+    text-align: center;
+    align-content: center;
+}
+
+input[type=email],
+input[type=password],
+button {
+    display: block;
+    width: 100%;
+    margin: 15px auto;
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.signup {
+    display: inline-block;
+    color: black;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    border: 1px solid black;
+}
