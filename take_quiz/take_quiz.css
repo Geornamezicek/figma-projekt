@@ -1,0 +1,22 @@
+﻿body {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 40px;
+}
+
+.options button {
+    margin: 10px;
+    padding: 20px;
+    width: 50px;
+    font-weight: bold;
+}
+
+.correct {
+    background-color: limegreen;
+    color: white;
+}
+
+.wrong {
+    background-color: red;
+    color: white;
+}

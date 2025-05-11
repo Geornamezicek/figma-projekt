@@ -1,0 +1,18 @@
+﻿body {
+    font-family: sans-serif;
+    padding: 20px;
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.item {
+    padding: 40px;
+    background: darkgray;
+}

@@ -1,0 +1,17 @@
+﻿body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+    gap: 40px;
+}
+
+.card {
+    padding: 60px 40px;
+    background: darkgray;
+    border-radius: 20px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+}
