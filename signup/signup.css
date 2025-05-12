@@ -1,6 +1,7 @@
 ﻿body {
     text-align: center;
-    font-family: sans-serif;
+    font-family: "Jersey 10", sans-serif;
+    font-size: 48px;
 }
 
 .box {
@@ -9,9 +10,12 @@
     padding: 20px;
     border: 2px solid black;
     border-radius: 20px;
+    background-color: darkgray;
 }
 
 input {
+    font-family: "Jersey 10", sans-serif;
+    font-size: 36px;
     display: block;
     width: 90%;
     margin: 10px auto;
@@ -19,6 +23,8 @@ input {
 }
 
 button {
+    font-family: "Jersey 10", sans-serif;
+    font-size: 36px;
     padding: 10px 20px;
     margin-top: 10px;
 }

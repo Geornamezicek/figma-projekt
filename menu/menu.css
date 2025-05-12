@@ -3,15 +3,20 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: sans-serif;
     gap: 40px;
 }
 
 .card {
+    font-family: "Jersey 10", sans-serif;
     padding: 60px 40px;
     background: darkgray;
     border-radius: 20px;
-    font-size: 24px;
+    font-size: 48px;
     text-align: center;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+.card:hover {
+    background: gray;
 }

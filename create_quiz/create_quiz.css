@@ -1,5 +1,6 @@
 ﻿body {
-    font-family: sans-serif;
+    font-family: "Jersey 10", sans-serif;
+    font-size: 36px;
     display: flex;
     gap: 20px;
     padding: 40px;
@@ -15,9 +16,12 @@
     background: darkgray;
     padding: 20px;
     flex: 1;
+    align-content: center;
 }
 
 button {
+    font-family: "Jersey 10", sans-serif;
+    font-size: 36px;
     padding: 10px;
 }
 
