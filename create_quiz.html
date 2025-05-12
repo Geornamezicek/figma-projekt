@@ -13,18 +13,19 @@
 </head>
 <body>
 <div class="sidebar">
+    <script src="QuizCreator.js"></script>
     <button>ADD SLIDE</button>
     <button>ADD QUESTION</button>
-    <button>SAVE QUIZ</button>
+    <button onclick="saveQuizToLocalStorage()">SAVE QUIZ</button>
 </div>
 <div class="main">
-    <p><strong>question:</strong></p>
-    <p>A... &nbsp;&nbsp; B... &nbsp;&nbsp; C... &nbsp;&nbsp; D...</p>
+    <label for="question"><strong>question:</strong></label>
+    <input type="text" id="question" name="question" placeholder="enter your question">
     <div class="options">
-        <button>A</button>
-        <button>B</button>
-        <button>C</button>
-        <button>D</button>
+        <label><input type="radio" name="option" value="A">A</label>
+        <label><input type="radio" name="option" value="B">B</label>
+        <label><input type="radio" name="option" value="C">C</label>
+        <label><input type="radio" name="option" value="D">D</label>
     </div>
 </div>
 </body>

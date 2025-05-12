@@ -16,7 +16,6 @@
     background: darkgray;
     padding: 20px;
     flex: 1;
-    align-content: center;
 }
 
 button {
@@ -25,6 +24,16 @@ button {
     padding: 10px;
 }
 
-.options button {
-    margin: 5px;
+.options {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    font-size: 28px;
+    padding: 10px;
+    margin-top: 10px;
 }
