@@ -55,42 +55,113 @@
         .wrong:hover {
             background-color: darkred;
         }
+
+        .navigation {
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            font-family: "Jersey 10", sans-serif;
+            font-size: 36px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="take_quiz">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const quizData = JSON.parse(localStorage.getItem('quiz'));
+        let currentSlideIndex = 0;
+        let quizData = [];
 
-            if (!quizData) {
-                alert("Žádný kvíz nebyl nalezen.");
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedQuiz = localStorage.getItem("quiz");
+
+            if (!savedQuiz) {
+                alert("Quiz nenalezen.");
                 return;
             }
 
-            const questionText = document.getElementById('question-text');
-            const optionsContainer = document.getElementById('options-container');
+            quizData = JSON.parse(savedQuiz);
 
-            questionText.textContent = quizData.question;
+            if (!Array.isArray(quizData)) {
+                quizData = [quizData];
+            }
 
-            const options = ['A', 'B', 'C', 'D'];
+            if (quizData.length === 0) {
+                alert("Quiz je prazdny.");
+                return;
+            }
 
-            options.forEach(option => {
-                const button = document.createElement('button');
-                const answerText = quizData.options[option] || '';
+            showSlide(0);
+        });
+
+        function showSlide(index) {
+            const questionText = document.getElementById("question-text");
+            const optionsContainer = document.getElementById("options-container");
+            const slideNumber = document.getElementById("slide-number");
+
+            optionsContainer.innerHTML = "";
+
+            slideNumber.textContent = `Question ${index + 1} of ${quizData.length}`;
+
+            questionText.textContent = quizData[index].question;
+
+            const options = ["A", "B", "C", "D"];
+
+            options.forEach((option) => {
+                const button = document.createElement("button");
+                const answerText = quizData[index].options[option] || "";
 
                 button.textContent = `${option}: ${answerText}`;
-                button.addEventListener('click', function () {
-                    if (option === quizData.correctAnswer) button.classList.add('correct');
-                    else button.classList.add('wrong');
+                button.addEventListener("click", function () {
+                    if (option === quizData[index].correctAnswer) {
+                        button.classList.add("correct");
+                    } else {
+                        button.classList.add("wrong");
+                    }
                 });
 
                 optionsContainer.appendChild(button);
             });
-        });
+
+            document.getElementById("prev-button").disabled = index === 0;
+            document.getElementById("next-button").disabled =
+                index === quizData.length - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < quizData.length - 1) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
+            }
+        }
     </script>
+
     <div class="question">
+        <p id="slide-number">Question 1 of 1</p>
         <p><strong id="question-text">question:</strong></p>
     </div>
+
     <div class="options" id="options-container"></div>
+    <div class="navigation">
+        <button id="prev-button" onclick="prevSlide()">Previous</button>
+        <button id="next-button" onclick="nextSlide()">Next</button>
+    </div>
 </body>
 </html>

@@ -22,6 +22,9 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            position: sticky;
+            top: 0;
+            align-self: flex-start;
         }
 
         .main {
@@ -50,62 +53,104 @@
             margin-top: 10px;
         }
 
+        .slide {
+            background: darkgray;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-number {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-<div class="sidebar">
-    <script>
-        function saveQuizToLocalStorage() {
-            const question = document.getElementById('question').value;
-            const selectedOption = document.querySelector('input[name="option"]:checked');
+    <div class="sidebar">
+        <script>
+            let slides = [];
 
-            if (!question || !selectedOption) {
-                alert("Zadej otázku a vyber správnou odpověď.");
-                return;
+            function createNewSlide() {
+                const mainDiv = document.querySelector(".main");
+                const slideDiv = document.createElement("div");
+                slideDiv.className = "slide active";
+                slideDiv.innerHTML = `
+                <div class="slide-number">Slide ${slides.length + 1}</div>
+                <label for="question${slides.length}"><strong>question:</strong></label>
+                <input type="text" id="question${slides.length}" name="question" placeholder="enter your question">
+                <div class="options">
+                  <label>
+                    <input type="radio" name="option${slides.length}" value="A"> A
+                    <input type="text" id="textA${slides.length}" placeholder="text for answer A">
+                  </label><br>
+                  <label>
+                    <input type="radio" name="option${slides.length}" value="B"> B
+                    <input type="text" id="textB${slides.length}" placeholder="text for answer B">
+                  </label><br>
+                  <label>
+                    <input type="radio" name="option${slides.length}" value="C"> C
+                    <input type="text" id="textC${slides.length}" placeholder="text for answer C">
+                  </label><br>
+                  <label>
+                    <input type="radio" name="option${slides.length}" value="D"> D
+                    <input type="text" id="textD${slides.length}" placeholder="text for answer D">
+                  </label>
+                </div>
+              `;
+                mainDiv.appendChild(slideDiv);
+                slides.push(slideDiv);
             }
 
-            const optionsText = {
-                A: document.getElementById('textA').value,
-                B: document.getElementById('textB').value,
-                C: document.getElementById('textC').value,
-                D: document.getElementById('textD').value
-            };
+            function saveQuizToLocalStorage() {
+                const quizItems = [];
+                let failedSlide = false;
 
-            const quizItem = {
-                question: question,
-                options: optionsText,
-                correctAnswer: selectedOption.value
-            };
+                if (document.getElementsByClassName("slide-number").length === 0) {
+                    alert("Nevytvoril si zadny slide!");
+                    return;
+                }
 
-            localStorage.setItem('quiz', JSON.stringify(quizItem));
-            alert("Uloženo!");
-        }
-    </script>
-    <button>ADD SLIDE</button>
-    <button>ADD QUESTION</button>
-    <button onclick="saveQuizToLocalStorage()">SAVE QUIZ</button>
-</div>
-<div class="main">
-    <label for="question"><strong>question:</strong></label>
-    <input type="text" id="question" name="question" placeholder="enter your question">
-    <div class="options">
-        <label>
-            <input type="radio" name="option" value="A"> A
-            <input type="text" id="textA" placeholder="text for answer A">
-        </label><br>
-        <label>
-            <input type="radio" name="option" value="B"> B
-            <input type="text" id="textB" placeholder="text for answer B">
-        </label><br>
-        <label>
-            <input type="radio" name="option" value="C"> C
-            <input type="text" id="textC" placeholder="text for answer C">
-        </label><br>
-        <label>
-            <input type="radio" name="option" value="D"> D
-            <input type="text" id="textD" placeholder="text for answer D">
-        </label>
+                slides.forEach((slide, index) => {
+                    const question = document.getElementById(`question${index}`).value;
+                    const selectedOption = document.querySelector(
+                        `input[name="option${index}"]:checked`
+                    );
+
+                    if (!question || !selectedOption) {
+                        alert(`Vypln vsechna pole pro slide ${index + 1}`);
+                        failedSlide = true;
+                        return;
+                    }
+
+                    const optionsText = {
+                        A: document.getElementById(`textA${index}`).value,
+                        B: document.getElementById(`textB${index}`).value,
+                        C: document.getElementById(`textC${index}`).value,
+                        D: document.getElementById(`textD${index}`).value,
+                    };
+
+                    const quizItem = {
+                        question: question,
+                        options: optionsText,
+                        correctAnswer: selectedOption.value,
+                    };
+
+                    quizItems.push(quizItem);
+                });
+
+                if (failedSlide) return;
+                localStorage.setItem("quiz", JSON.stringify(quizItems));
+                alert("Quiz se uspesne ulozil!");
+            }
+        </script>
+        <button onclick="createNewSlide()">ADD SLIDE</button>
+        <button onclick="saveQuizToLocalStorage()">SAVE QUIZ</button>
     </div>
-</div>
+    <div class="main"></div>
 </body>
 </html>

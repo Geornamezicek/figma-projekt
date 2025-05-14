@@ -15,10 +15,11 @@
 
         .box {
             margin: 100px auto;
-            width: 500px;
+            width: 300px;
             padding: 20px;
-            border: 1px solid black;
-            border-radius: 30px;
+            border: 2px solid black;
+            border-radius: 20px;
+            background-color: darkgray;
         }
 
         input {
@@ -28,9 +29,6 @@
             width: 90%;
             margin: 10px auto;
             padding: 10px;
-            text-align: center;
-            border-radius: 30px;
-            border: 1px solid black;
         }
 
         button {
@@ -38,23 +36,41 @@
             font-size: 36px;
             padding: 10px 20px;
             margin-top: 10px;
-            width: 300px;
-            background: white;
-            border: 1px solid black;
-            border-radius: 30px;
-            cursor: pointer;
         }
-
-
     </style>
 </head>
 <body>
     <h1>Welcome Back!</h1>
     <div class="box">
-        <input type="email" placeholder="EMAIL">
-        <input type="password" placeholder="PASSWORD">
-        <a href="menu.html"><button>LOG IN</button></a>
+        <input type="email" id="email" placeholder="EMAIL" />
+        <input type="password" id="password" placeholder="PASSWORD" />
+        <button onclick="login()">LOG IN</button>
     </div>
-        <a href="signup.html"><button>New Here?! Sign Up!</button></a>
+    <a href="signup.html"><button>New Here?! Sign Up!</button></a>
+
+    <script>
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                alert("Prosim vypln vsechna pole!");
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            const user = users.find(
+                (u) => u.email === email && u.password === password
+            );
+
+            if (user) {
+                alert("Login uspesny!");
+                window.location.href = "menu.html";
+            } else {
+                alert("Zadany email nebo heslo neexistuje!");
+            }
+        }
+    </script>
 </body>
 </html>
