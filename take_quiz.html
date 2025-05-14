@@ -1,15 +1,19 @@
-﻿
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap"
+            rel="stylesheet"
+    />
     <style>
         body {
             font-family: "Jersey 10", sans-serif;
@@ -75,18 +79,68 @@
         .slide.active {
             display: block;
         }
+
+        .lives-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 36px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .heart {
+            color: red;
+        }
+
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .game-over button {
+            font-family: "Jersey 10", sans-serif;
+            font-size: 36px;
+            padding: 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
-<body class="take_quiz">
+<body>
+    <div class="lives-container">
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+        <span class="heart">❤️</span>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <h2>Game Over!</h2>
+        <p>You've run out of lives!</p>
+        <button onclick="window.location.href='quiz_collection.html'">
+            Back to Quizzes
+        </button>
+    </div>
+
     <script>
         let currentSlideIndex = 0;
         let quizData = [];
+        let lives = 3;
 
         document.addEventListener("DOMContentLoaded", function () {
-            const savedQuiz = localStorage.getItem("quiz");
+            const savedQuiz = localStorage.getItem("currentQuiz");
 
             if (!savedQuiz) {
-                alert("Quiz nenalezen.");
+                alert("Zadny quiz nebyl vybran!");
+                window.location.href = "quiz_collection.html";
                 return;
             }
 
@@ -103,6 +157,20 @@
 
             showSlide(0);
         });
+
+        function updateLives() {
+            const hearts = document.querySelectorAll(".heart");
+            hearts.forEach((heart, index) => {
+                heart.style.opacity = index < lives ? "1" : "0.3";
+            });
+
+            if (lives <= 0) {
+                document.getElementById("gameOver").style.display = "block";
+                document.querySelector(".question").style.display = "none";
+                document.querySelector(".options").style.display = "none";
+                document.querySelector(".navigation").style.display = "none";
+            }
+        }
 
         function showSlide(index) {
             const questionText = document.getElementById("question-text");
@@ -127,6 +195,8 @@
                         button.classList.add("correct");
                     } else {
                         button.classList.add("wrong");
+                        lives--;
+                        updateLives();
                     }
                 });
 
@@ -152,12 +222,10 @@
             }
         }
     </script>
-
     <div class="question">
         <p id="slide-number">Question 1 of 1</p>
         <p><strong id="question-text">question:</strong></p>
     </div>
-
     <div class="options" id="options-container"></div>
     <div class="navigation">
         <button id="prev-button" onclick="prevSlide()">Previous</button>

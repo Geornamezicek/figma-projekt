@@ -1,14 +1,19 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap"
+            rel="stylesheet"
+    />
     <style>
         body {
             font-family: "Jersey 10", sans-serif;
@@ -41,22 +46,22 @@
 <body>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const quizData = JSON.parse(localStorage.getItem('quiz'));
-            console.log(quizData.question)
-            document.getElementById("item1").textContent = quizData.question;
+            const quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+            const grid = document.querySelector(".grid");
+            grid.innerHTML = "";
+
+            quizzes.forEach((quiz, index) => {
+                const button = document.createElement("button");
+                button.textContent = `Quiz #${index + 1}`;
+                button.onclick = function () {
+                    localStorage.setItem("currentQuiz", JSON.stringify(quiz));
+                    window.location.href = "take_quiz.html";
+                };
+                grid.appendChild(button);
+            });
         });
     </script>
     <h1>QUIZ COLLECTION</h1>
-    <div class="grid">
-        <button class="item" id="item1">quiz #1</button>
-        <button class="item" id="item2">quiz #2</button>
-        <button class="item" id="item3">quiz #3</button>
-        <button class="item" id="item4">quiz #4</button>
-        <button class="item" id="item5">quiz #5</button>
-        <button class="item" id="item6">quiz #6</button>
-        <button class="item" id="item7">quiz #7</button>
-        <button class="item" id="item8">quiz #8</button>
-        <button class="item" id="item9">quiz #9</button>
-    </div>
+    <div class="grid"></div>
 </body>
 </html>

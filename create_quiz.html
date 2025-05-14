@@ -1,14 +1,19 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap"
+            rel="stylesheet"
+    />
     <style>
         body {
             font-family: "Jersey 10", sans-serif;
@@ -60,7 +65,7 @@
             display: block;
         }
 
-        .slide.active {
+        .slide active {
             display: block;
         }
 
@@ -81,24 +86,36 @@
                 slideDiv.className = "slide active";
                 slideDiv.innerHTML = `
                 <div class="slide-number">Slide ${slides.length + 1}</div>
-                <label for="question${slides.length}"><strong>question:</strong></label>
-                <input type="text" id="question${slides.length}" name="question" placeholder="enter your question">
+                <label for="question${
+                    slides.length
+                }"><strong>question:</strong></label>
+                <input type="text" id="question${
+                    slides.length
+                }" name="question" placeholder="enter your question">
                 <div class="options">
                   <label>
                     <input type="radio" name="option${slides.length}" value="A"> A
-                    <input type="text" id="textA${slides.length}" placeholder="text for answer A">
+                    <input type="text" id="textA${
+                    slides.length
+                }" placeholder="text for answer A">
                   </label><br>
                   <label>
                     <input type="radio" name="option${slides.length}" value="B"> B
-                    <input type="text" id="textB${slides.length}" placeholder="text for answer B">
+                    <input type="text" id="textB${
+                    slides.length
+                }" placeholder="text for answer B">
                   </label><br>
                   <label>
                     <input type="radio" name="option${slides.length}" value="C"> C
-                    <input type="text" id="textC${slides.length}" placeholder="text for answer C">
+                    <input type="text" id="textC${
+                    slides.length
+                }" placeholder="text for answer C">
                   </label><br>
                   <label>
                     <input type="radio" name="option${slides.length}" value="D"> D
-                    <input type="text" id="textD${slides.length}" placeholder="text for answer D">
+                    <input type="text" id="textD${
+                    slides.length
+                }" placeholder="text for answer D">
                   </label>
                 </div>
               `;
@@ -108,12 +125,8 @@
 
             function saveQuizToLocalStorage() {
                 const quizItems = [];
-                let failedSlide = false;
 
-                if (document.getElementsByClassName("slide-number").length === 0) {
-                    alert("Nevytvoril si zadny slide!");
-                    return;
-                }
+                let slideFailed = false;
 
                 slides.forEach((slide, index) => {
                     const question = document.getElementById(`question${index}`).value;
@@ -122,8 +135,8 @@
                     );
 
                     if (!question || !selectedOption) {
-                        alert(`Vypln vsechna pole pro slide ${index + 1}`);
-                        failedSlide = true;
+                        alert(`Prosim vypln vse ve slidu ${index + 1}`);
+                        slideFailed = true;
                         return;
                     }
 
@@ -143,9 +156,14 @@
                     quizItems.push(quizItem);
                 });
 
-                if (failedSlide) return;
-                localStorage.setItem("quiz", JSON.stringify(quizItems));
-                alert("Quiz se uspesne ulozil!");
+                if (slideFailed) return;
+
+                const existingQuizzes =
+                    JSON.parse(localStorage.getItem("quizzes")) || [];
+                existingQuizzes.push(quizItems);
+                localStorage.setItem("quizzes", JSON.stringify(existingQuizzes));
+                alert("Quiz uspesne ulozen!");
+                window.location.href = "quiz_collection.html";
             }
         </script>
         <button onclick="createNewSlide()">ADD SLIDE</button>
