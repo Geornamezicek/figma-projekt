@@ -75,7 +75,7 @@
 
             options.forEach(option => {
                 const button = document.createElement('button');
-                const answerText = quizData.options[option] || ''; // pokud chybí text, zobrazí se prázdně
+                const answerText = quizData.options[option] || '';
 
                 button.textContent = `${option}: ${answerText}`;
                 button.addEventListener('click', function () {
