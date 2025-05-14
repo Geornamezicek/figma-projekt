@@ -9,7 +9,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="menu.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 40px;
+        }
+
+        .card {
+            font-family: "Jersey 10", sans-serif;
+            padding: 60px 40px;
+            background: darkgray;
+            border-radius: 20px;
+            font-size: 48px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .card:hover {
+            background: gray;
+        }
+    </style>
 </head>
 <body>
     <a href="create_quiz.html"><button class="card">MAKE A NEW QUIZ</button></a>

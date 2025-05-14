@@ -9,10 +9,43 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="quiz_collection.css">
+    <style>
+        body {
+            font-family: "Jersey 10", sans-serif;
+            font-size: 48px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        button {
+            font-family: "Jersey 10", sans-serif;
+            font-size: 36px;
+            padding: 40px;
+            background-color: darkgray;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: gray;
+        }
+    </style>
 </head>
 <body>
-<script src="QuizCollection.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const quizData = JSON.parse(localStorage.getItem('quiz'));
+            console.log(quizData.question)
+            document.getElementById("item1").textContent = quizData.question;
+        });
+    </script>
     <h1>QUIZ COLLECTION</h1>
     <div class="grid">
         <button class="item" id="item1">QUIZ NAME</button>

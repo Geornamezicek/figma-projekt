@@ -9,11 +9,77 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="create_quiz.css">
+    <style>
+        body {
+            font-family: "Jersey 10", sans-serif;
+            font-size: 36px;
+            display: flex;
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .main {
+            background: darkgray;
+            padding: 20px;
+            flex: 1;
+        }
+
+        button {
+            font-family: "Jersey 10", sans-serif;
+            font-size: 36px;
+            padding: 10px;
+        }
+
+        .options {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            font-size: 28px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 <div class="sidebar">
-    <script src="QuizCreator.js"></script>
+    <script>
+        function saveQuizToLocalStorage() {
+            const question = document.getElementById('question').value;
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+
+            if (!question || !selectedOption) {
+                alert("Zadej otázku a vyber správnou odpověď.");
+                return;
+            }
+
+            const optionsText = {
+                A: document.getElementById('textA').value,
+                B: document.getElementById('textB').value,
+                C: document.getElementById('textC').value,
+                D: document.getElementById('textD').value
+            };
+
+            const quizItem = {
+                question: question,
+                options: optionsText,
+                correctAnswer: selectedOption.value
+            };
+
+            localStorage.setItem('quiz', JSON.stringify(quizItem));
+            alert("Uloženo!");
+        }
+    </script>
     <button>ADD SLIDE</button>
     <button>ADD QUESTION</button>
     <button onclick="saveQuizToLocalStorage()">SAVE QUIZ</button>
@@ -24,19 +90,19 @@
     <div class="options">
         <label>
             <input type="radio" name="option" value="A"> A
-            <input type="text" id="textA" placeholder="Text odpovědi A">
+            <input type="text" id="textA" placeholder="text for answer A">
         </label><br>
         <label>
             <input type="radio" name="option" value="B"> B
-            <input type="text" id="textB" placeholder="Text odpovědi B">
+            <input type="text" id="textB" placeholder="text for answer B">
         </label><br>
         <label>
             <input type="radio" name="option" value="C"> C
-            <input type="text" id="textC" placeholder="Text odpovědi C">
+            <input type="text" id="textC" placeholder="text for answer C">
         </label><br>
         <label>
             <input type="radio" name="option" value="D"> D
-            <input type="text" id="textD" placeholder="Text odpovědi D">
+            <input type="text" id="textD" placeholder="text for answer D">
         </label>
     </div>
 </div>
