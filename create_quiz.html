@@ -130,9 +130,7 @@
 
                 slides.forEach((slide, index) => {
                     const question = document.getElementById(`question${index}`).value;
-                    const selectedOption = document.querySelector(
-                        `input[name="option${index}"]:checked`
-                    );
+                    const selectedOption = document.querySelector(`input[name="option${index}"]:checked`);
 
                     if (!question || !selectedOption) {
                         alert(`Prosim vypln vse ve slidu ${index + 1}`);
@@ -158,8 +156,7 @@
 
                 if (slideFailed) return;
 
-                const existingQuizzes =
-                    JSON.parse(localStorage.getItem("quizzes")) || [];
+                const existingQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
                 existingQuizzes.push(quizItems);
                 localStorage.setItem("quizzes", JSON.stringify(existingQuizzes));
                 alert("Quiz uspesne ulozen!");

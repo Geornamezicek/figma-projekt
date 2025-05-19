@@ -160,9 +160,7 @@
 
         function updateLives() {
             const hearts = document.querySelectorAll(".heart");
-            hearts.forEach((heart, index) => {
-                heart.style.opacity = index < lives ? "1" : "0.3";
-            });
+            hearts.forEach((heart, index) => heart.style.opacity = index < lives ? "1" : "0.3");
 
             if (lives <= 0) {
                 document.getElementById("gameOver").style.display = "block";
@@ -204,8 +202,7 @@
             });
 
             document.getElementById("prev-button").disabled = index === 0;
-            document.getElementById("next-button").disabled =
-                index === quizData.length - 1;
+            document.getElementById("next-button").disabled = index === quizData.length - 1;
         }
 
         function nextSlide() {
